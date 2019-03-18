@@ -1,0 +1,32 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+    state: {
+        user: {
+            id: null,
+            email: "",
+            username: ""
+        },
+        signedIn: false
+    },
+    mutations:{
+        CURRENT_USER_FETCHED(state, user) {
+            state.user.id = user.id,
+            state.user.email = user.email,
+            state.username = user.username,
+            state.signedIn = true
+        }
+    },
+    actions: {
+        async initialLoad(context) {            
+            if (localStorage.bgtrackerjwt) {                                
+                Vue.axios.defaults.headers.common.Authorization = `Bearer ${localStorage.bgtrackerjwt}`;                
+                const res = await Vue.axios.get("http://localhost:5000/api/auth/user");                
+                context.commit("CURRENT_USER_FETCHED", res.data.user);
+            }            
+        }
+    }
+});

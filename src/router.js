@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './components/auth/Login.vue'
 import Register from './components/auth/Register.vue'
+import Home from './components/Home.vue'
 
 Vue.use(Router)
 
@@ -25,6 +26,11 @@ export default new Router({
             {
                 title: "DAD Parking Register"
             }
+        },
+        {
+            path: '/',
+            name: 'home',
+            component: Home
         }
     ]
 })
