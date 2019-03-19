@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <Header/>
+    <Navbar/>
   </div>
 </template>
 
 <script>
-import Header from "./layouts/Header.vue";
+import Navbar from "./layouts/Navbar.vue";
 import { mapActions } from 'vuex';
 
 export default {
@@ -16,7 +16,7 @@ export default {
     };
   },
   components: {
-    Header
+    Navbar
   },
   methods: {
     ...mapActions(["initialLoad"])
