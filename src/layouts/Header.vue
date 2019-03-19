@@ -2,8 +2,10 @@
   <div id="app">
     <ul class="nav">
       <li><router-link :to="{ name: 'home' }">Home</router-link></li>      
+      <li v-if="isAuthenticated"><router-link :to="{ name: 'vagas' }">Vagas</router-link></li>
       <li v-if="!isAuthenticated"><router-link :to="{ name: 'login' }">Login</router-link></li>
-      <li v-if="!isAuthenticated"><router-link :to="{ name: 'register' }">Register</router-link></li>      
+      <li v-if="!isAuthenticated"><router-link :to="{ name: 'register' }">Register</router-link></li>
+      <a class="nav-item is-tab" v-if="isAuthenticated">Log out</a> 
     </ul>
 
     <transition name="router-animation" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in">

@@ -5,16 +5,16 @@
         <h3 class="title has-text-grey">Login</h3>
         <p class="subtitle has-text-grey">Please login to proceed.</p>
         <div class="box">
-          <form @submit.prevent="handleSubmit">
+          <form @submit.prevent="login">
             <div class="field">
               <div class="control">
-                <input class="input is-large" v-model="email" type="email" placeholder="Your Email" autofocus :class="{ 'is-invalid': submitted && !email }">
+                <input class="input is-large" v-model="email" type="email" placeholder="Your Email" autofocus :class="{ 'is-invalid': !email }">
               </div>
             </div>
 
             <div class="field">
               <div class="control">
-                <input class="input is-large" v-model="password" type="password" placeholder="Your Password" :class="{ 'is-invalid': submitted && !password }">
+                <input class="input is-large" v-model="password" type="password" placeholder="Your Password" :class="{ 'is-invalid': !password }">
               </div>
             </div>
             <div class="field">
@@ -23,7 +23,7 @@
                 Remember me
               </label>
             </div>
-            <button class="button is-block is-info is-large is-fullwidth">Login</button>
+            <button class="button is-block is-info is-large is-fullwidth" type="submit">Login</button>
           </form>
         </div>
         <p class="has-text-grey">
@@ -36,13 +36,28 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data() {
     return {
       email: "",
       password: "",
-      submitted: false
+      error: false
     };
+  },
+  methods: {
+    login: async function() {
+      let email = this.email
+      let password = this.password
+      try{
+        await this.loginIntoServer({email, password})        
+        this.$router.push('/')
+      } catch(err) {
+        this.error = true
+      }      
+    },
+    ...mapActions(['loginIntoServer'])
   }
 };
 </script>
