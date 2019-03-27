@@ -16,16 +16,16 @@
           </v-list-tile>
         </v-list>
       </v-menu>
-      <v-btn flat color="grey" v-if="!isAuthenticated">
-        <span><router-link :to="{ name: 'home' }">Home</router-link></span>        
+      <v-btn depressed active-class="default-class none" v-if="!isAuthenticated" :to="{ name: 'home' }">
+        <span>Home</span>        
       </v-btn>
-      <v-btn flat color="grey" v-if="!isAuthenticated">
-        <span><router-link :to="{ name: 'login' }">Login</router-link></span>        
+      <v-btn depressed active-class="default-class none" v-if="!isAuthenticated" :to="{ name: 'login' }">
+        <span>Login</span>        
       </v-btn>
-      <v-btn flat color="grey" v-if="!isAuthenticated">
-        <span><router-link :to="{ name: 'register' }">Register</router-link></span>        
+      <v-btn depressed active-class="default-class none" v-if="!isAuthenticated" :to="{ name: 'register' }">
+        <span>Register</span>        
       </v-btn>
-      <v-btn flat color="grey" v-if="isAuthenticated">
+      <v-btn depressed active-class="default-class none" v-if="isAuthenticated">
         <span>Sign Out</span>
         <v-icon right>exit_to_app</v-icon>
       </v-btn>      
@@ -50,25 +50,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-.nav {
-  display: flex;
-  list-style: none;
-  padding: 15px 0;
-  margin: 0;
-  justify-content: flex-end;
-  background: #f5f8fa;
-  border-bottom: 1px solid lightgrey;
-  margin-bottom: 24px;
-}
-.nav a {
-  color: #636b6f;
-  padding: 0 25px;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.1rem;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-</style>
