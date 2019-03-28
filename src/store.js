@@ -44,6 +44,17 @@ export default new Vuex.Store({
                             localStorage.removeItem('bgtrackerjwt')
                             reject(err)
                         });             
+        },
+        async registerUser(context, user, fn) {
+            Vue.axios.post(process.env.VUE_APP_SERVER_HOST + '/api/auth/register', user)
+                        .then(res => {
+                            resolve(res)                            
+                            fn({ message: res, successful: false })
+                        })
+                        .catch(err => { 
+                            reject(err)                                                                   
+                            fn({ message: err, successful: false })
+                        })
         }
     }
 });

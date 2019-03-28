@@ -1,63 +1,66 @@
 <template>
-  <div class="hero-body" id="login">
-    <div class="container has-text-centered">
-      <div class="column is-4 is-offset-4">
-        <h3 class="title has-text-grey">Login</h3>
-        <p class="subtitle has-text-grey">Please login to proceed.</p>
-        <div class="box">
-          <form @submit.prevent="login">
-            <div class="field">
-              <div class="control">
-                <input class="input is-large" v-model="email" type="email" placeholder="Your Email" autofocus :class="{ 'is-invalid': !email }">
-              </div>
-            </div>
+  <v-container fluid fill-height class="my-5">
+    <v-layout flex align-center justify-center>
+      <v-flex xs12 sm6>        
 
-            <div class="field">
-              <div class="control">
-                <input class="input is-large" v-model="password" type="password" placeholder="Your Password" :class="{ 'is-invalid': !password }">
-              </div>
-            </div>
-            <div class="field">
-              <label class="checkbox">
-                <input type="checkbox">
-                Remember me
-              </label>
-            </div>
-            <button class="button is-block is-info is-large is-fullwidth" type="submit">Login</button>
-          </form>
-        </div>
-        <p class="has-text-grey">
-          <router-link :to="{ name: 'register' }">Sign Up</router-link>          
-        </p>
-      </div>
-    </div>    
-    <router-view></router-view>
-  </div>  
+        <v-toolbar flat fill-height class="p-5 my-3 ligth-grey">
+          <v-toolbar-title align-center>
+            <h4>Login</h4>
+          </v-toolbar-title>
+        </v-toolbar>
+
+        <v-form ref="form">
+          <v-text-field v-model="email" :rules="[rules.required]" label="E-mail"></v-text-field>
+
+          <v-text-field
+            v-model="password"
+            :append-icon="showPassword ? 'visibility' : 'visibility_off'"
+            :rules="[rules.required, rules.min]"
+            :type="showPassword ? 'text' : 'password'"
+            name="input-10-1"
+            label="Password"
+            hint="At least 6 characters"
+            counter
+            @click:append="showPassword = !showPassword"
+          ></v-text-field>
+
+          <v-layout align-center justify-center>
+            <v-btn @click="login" large>Login</v-btn>
+          </v-layout>
+        </v-form>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 
 export default {
   data() {
     return {
       email: "",
       password: "",
-      error: false
+      error: false,
+      showPassword: false,      
+      rules: {
+        required: value => !!value || "Required",
+        min: v => v.length >= 6 || "Min 6 characters"
+      }
     };
   },
   methods: {
     login: async function() {
-      let email = this.email
-      let password = this.password
-      try{
-        await this.loginIntoServer({email, password})        
-        this.$router.push('/')
-      } catch(err) {
-        this.error = true
-      }      
+      let email = this.email;
+      let password = this.password;
+      try {
+        await this.loginIntoServer({ email, password });
+        this.$router.push("/");
+      } catch (err) {
+        this.error = true;
+      }
     },
-    ...mapActions(['loginIntoServer'])
+    ...mapActions(["loginIntoServer"])
   }
 };
 </script>
