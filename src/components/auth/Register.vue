@@ -2,9 +2,9 @@
   <v-container fluid fill-height class="my-5">
     <v-layout flex align-center justify-center>
       <v-flex xs12 sm6>
-        <v-alert v-model="succesfulAlert" dismissible type="success">User registered succesfull</v-alert>
+        <v-alert v-model="successfulAlert" dismissible type="success">User registered succesfull</v-alert>
 
-        <v-alert v-model="errorAlert" dismissible type="error">{{this.errorMessage}}</v-alert>
+        <v-alert v-model="errorAlert" dismissible type="error">E-mail/Username already exists</v-alert>
 
         <v-toolbar flat fill-height class="p-5 my-3 ligth-grey">
           <v-toolbar-title align-center>
@@ -61,11 +61,10 @@ export default {
       fullName: "",
       email: "",
       password: "",
-      confirmPassword: "",
-      errorMessage: "",
+      confirmPassword: "",      
       showPassword: false,
       showConfirmPassword: false,
-      succesfulAlert: false,
+      successfulAlert: false,
       errorAlert: false,
       rules: {
         required: value => !!value || "Required",
@@ -90,18 +89,20 @@ export default {
     register: async function() {
       let email = this.email;
       let password = this.password;
-      let name = this.fullName;
+      let name = this.fullName.replace(" ", "_");      
 
       try {
-        await this.registerUser({ email, password, name }, function(response) {
-          if (response.succesful) {
-            this.succesfulAlert = true;
-          } else {
+        /* eslint-disable */
+        await this.registerUser({ email, password, name })
+          .then(res => { 
+            this.successfulAlert = true;
+            this.errorAlert = false;
+          })
+          .catch(err => {            
             this.errorAlert = true;
-            this.errorMessage = response.message;
-          }
-        });
-      } catch (err) {
+            this.successfulAlert = false;
+          })          
+      } catch (err) {        
         this.errorMessage = err;
         this.errorAlert = true;
       }
