@@ -12,14 +12,23 @@
           </v-toolbar-title>
         </v-toolbar>
 
-        <v-form ref="form">
-          <v-text-field clearable v-model="fullName" :rules="[rules.required]" label="Nome"></v-text-field>
+        <v-form ref="form" v-model="formValid">
+          <v-text-field
+            clearable
+            v-model="fullName"
+            :rules="[rules.required]"
+            label="Nome"
+            name="nome"
+            required
+          ></v-text-field>
 
           <v-text-field
             clearable
             v-model="email"
             :rules="[rules.required, rules.emailFormat]"
             label="E-mail"
+            name="email"
+            required
           ></v-text-field>
 
           <v-text-field
@@ -29,6 +38,7 @@
             :type="showPassword ? 'text' : 'password'"
             name="input-10-1"
             label="Password"
+            required
             @click:append="showPassword = !showPassword"
           ></v-text-field>
 
@@ -40,6 +50,7 @@
             :type="showConfirmPassword ? 'text' : 'password'"
             name="input-10-1"
             label="Confirm Password"
+            required
             @click:append="showConfirmPassword = !showConfirmPassword"
           ></v-text-field>
 
@@ -61,7 +72,8 @@ export default {
       fullName: "",
       email: "",
       password: "",
-      confirmPassword: "",      
+      confirmPassword: "",
+      formValid: false,
       showPassword: false,
       showConfirmPassword: false,
       successfulAlert: false,
@@ -87,24 +99,26 @@ export default {
         : "Passwords must match";
     },
     register: async function() {
-      let email = this.email;
-      let password = this.password;
-      let name = this.fullName.replace(" ", "_");      
+      if (this.formValid) {
+        let email = this.email;
+        let password = this.password;
+        let name = this.fullName.replace(" ", "_");
 
-      try {
-        /* eslint-disable */
-        await this.registerUser({ email, password, name })
-          .then(res => { 
-            this.successfulAlert = true;
-            this.errorAlert = false;
-          })
-          .catch(err => {            
-            this.errorAlert = true;
-            this.successfulAlert = false;
-          })          
-      } catch (err) {        
-        this.errorMessage = err;
-        this.errorAlert = true;
+        try {
+          /* eslint-disable */
+          await this.registerUser({ email, password, name })
+            .then(res => {
+              this.successfulAlert = true;
+              this.errorAlert = false;
+            })
+            .catch(err => {
+              this.errorAlert = true;
+              this.successfulAlert = false;
+            });
+        } catch (err) {
+          this.errorMessage = err;
+          this.errorAlert = true;
+        }
       }
     }
   }

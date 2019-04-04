@@ -9,8 +9,8 @@
           </v-toolbar-title>
         </v-toolbar>
 
-        <v-form ref="form">
-          <v-text-field v-model="email" :rules="[rules.required]" label="E-mail"></v-text-field>
+        <v-form ref="form" v-model="formValid">
+          <v-text-field v-model="email" :rules="[rules.required]" label="E-mail" required></v-text-field>
 
           <v-text-field
             v-model="password"
@@ -21,6 +21,7 @@
             label="Password"
             hint="At least 6 characters"
             counter
+            required
             @click:append="showPassword = !showPassword"
           ></v-text-field>
 
@@ -41,6 +42,7 @@ export default {
     return {
       email: "",
       password: "",
+      formValid: false,
       error: false,
       showPassword: false,      
       rules: {
