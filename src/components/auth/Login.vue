@@ -1,8 +1,7 @@
 <template>
   <v-container fluid fill-height class="my-5">
     <v-layout flex align-center justify-center>
-      <v-flex xs12 sm6>        
-
+      <v-flex xs12 sm6>
         <v-toolbar flat fill-height class="p-5 my-3 ligth-grey">
           <v-toolbar-title align-center>
             <h4>Login</h4>
@@ -44,7 +43,7 @@ export default {
       password: "",
       formValid: false,
       error: false,
-      showPassword: false,      
+      showPassword: false,
       rules: {
         required: value => !!value || "Required",
         min: v => v.length >= 6 || "Min 6 characters"
@@ -53,13 +52,15 @@ export default {
   },
   methods: {
     login: async function() {
-      let email = this.email;
-      let password = this.password;
-      try {
-        await this.loginIntoServer({ email, password });
-        this.$router.push("/");
-      } catch (err) {
-        this.error = true;
+      if (this.formValid) {
+        let email = this.email;
+        let password = this.password;
+        try {
+          await this.loginIntoServer({ email, password });
+          this.$router.push("/");
+        } catch (err) {
+          this.error = true;
+        }
       }
     },
     ...mapActions(["loginIntoServer"])

@@ -22,6 +22,11 @@ export default new Vuex.Store({
             state.user.id = user.id,
                 state.user.email = user.email,
                 state.user.username = user.username
+        },
+        DISPATCH_CURRENT_USER(state) {
+            state.user.id = null,
+            state.user.email = "",
+            state.user.username = ""
         }
     },
     actions: {
@@ -47,6 +52,15 @@ export default new Vuex.Store({
         },
         async registerUser(context, user) {
             return Vue.axios.post(process.env.VUE_APP_SERVER_HOST + '/api/auth/register', user)                    
+        },
+        logout(context) {
+            if(localStorage.bgtrackerjwt) {
+                localStorage.removeItem('bgtrackerjwt')
+                context.commit('DISPATCH_CURRENT_USER')
+                return true;
+            }
+
+            return false;
         }
     }
 });
