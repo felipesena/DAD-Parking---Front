@@ -59,6 +59,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { LOGOUT, IS_AUTHENTICATED } from './../store/types.js';
 
 export default {
   name: "Header",
@@ -75,7 +76,9 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["logout"]),
+    ...mapActions({
+      logout: LOGOUT
+    }),
     logoutUser() {
       if (this.logout()) {
         this.$router.push("/");
@@ -83,7 +86,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["isAuthenticated"])
+    ...mapGetters({
+      isAuthenticated: IS_AUTHENTICATED
+    })
   }
 };
 </script>

@@ -35,6 +35,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import { LOGIN_INTO_SERVER } from './../store/types.js';
 
 export default {
   data() {
@@ -63,7 +64,9 @@ export default {
         }
       }
     },
-    ...mapActions(["loginIntoServer"])
+    ...mapActions({
+      loginIntoServer: LOGIN_INTO_SERVER
+    })
   }
 };
 </script>

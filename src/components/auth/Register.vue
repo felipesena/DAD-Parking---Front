@@ -65,6 +65,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import { REGISTER_USER } from './../store/types.js'
 
 export default {
   data() {
@@ -92,7 +93,9 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["registerUser"]),
+    ...mapActions({
+      registerUser: REGISTER_USER
+    }),
     passwordMatchError() {
       return this.password === this.confirmPassword
         ? ""
