@@ -65,7 +65,7 @@
 
 <script>
 import { mapActions } from "vuex";
-import { REGISTER_USER } from './../store/types.js'
+import { REGISTER_USER } from './../../store/types.js'
 
 export default {
   data() {

@@ -35,7 +35,7 @@
 
 <script>
 import { mapActions } from "vuex";
-import { LOGIN_INTO_SERVER } from './../store/types.js';
+import { LOGIN_INTO_SERVER } from './../../store/types.js';
 
 export default {
   data() {

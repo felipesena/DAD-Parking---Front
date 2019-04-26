@@ -6,12 +6,12 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import router from './router';
 import Bulma from 'bulma';
-import auth from '../src/store/auth/index.js';
-import cliente from '../src/store/cliente/index.js';
-import estacionamento from '../src/store/estacionamento/index.js';
-import tarifa from '../src/store/tarifa/index.js';
-import vaga from '../src/store/vaga/index.js';
-import vinculo from '../src/store/vinculo/index.js';
+import auth from './store/auth/index.js';
+import cliente from './store/cliente/index.js';
+import estacionamento from './store/estacionamento/index.js';
+import tarifa from './store/tarifa/index.js';
+import vaga from './store/vaga/index.js';
+import vinculo from './store/vinculo/index.js';
 
 Vue.config.productionTip = false
 
