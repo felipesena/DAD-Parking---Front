@@ -33,7 +33,7 @@ const actions = {
     [types.INITIAL_LOAD]: (commit) => {
         if(localStorage.bgtrackerjwt) {
             Vue.axios.defaults.headers.common.Authorization = `Bearer ${localStorage.bgtrackerjwt}`;
-            const res = await Vue.axios.get(process.env.VUE_APP_SERVER_HOST + "/api/auth/user");
+            const res = Vue.axios.get(process.env.VUE_APP_SERVER_HOST + "/api/auth/user");
             commit(types.CURRENT_USER_FETCHED, res.data);
         }
     }

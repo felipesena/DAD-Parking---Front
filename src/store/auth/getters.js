@@ -1,7 +1,7 @@
-import {IS_AUTHENTICATED} from '../types.js';
+import { IS_AUTHENTICATED } from '../types.js';
 
 const getters = {
-    [types.IS_AUTHENTICATED]: (state) => {
+    [IS_AUTHENTICATED]: (state) => {
         return !!state.user.id;
     }
 }

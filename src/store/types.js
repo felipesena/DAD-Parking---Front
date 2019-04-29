@@ -11,7 +11,7 @@ export const CURRENT_USER_FETCHED = 'auth/CURRENT_USER_FETCHED';
 export const DISPATCH_CURRENT_USER = 'auth/DISPATCH_CURRENT_USER';
 
 // Auth Getters
-export const IS_AUTHENTICATED = 'auth/IS_AUTHENTICATED'
+export const IS_AUTHENTICATED = 'auth/IS_AUTHENTICATED';
 
 /* ----- CLIENTE ----- */
 
