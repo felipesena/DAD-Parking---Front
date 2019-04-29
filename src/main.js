@@ -5,7 +5,6 @@ import App from './App.vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import router from './router';
-import Bulma from 'bulma';
 import auth from './store/auth/index.js';
 import cliente from './store/cliente/index.js';
 import estacionamento from './store/estacionamento/index.js';
@@ -15,7 +14,6 @@ import vinculo from './store/vinculo/index.js';
 
 Vue.config.productionTip = false
 
-Vue.use(Bulma);
 Vue.use(VueAxios, axios);
 Vue.use(Vuex);
 
