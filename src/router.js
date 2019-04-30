@@ -7,31 +7,23 @@ import Cliente from './views/Cliente.vue'
 import Dashboard from './views/Dashboard.vue'
 import Estacionamento from './views/Estacionamento.vue'
 import Tarifa from './views/Tarifa.vue'
-import Vaga from './views/Vaga.vue'
+import Vaga from './views/vaga/Index.vue'
 import Vinculo from './views/Vinculo.vue'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
     mode: 'history',
     routes: [
         {
             path: '/login',   
             name: 'login',
-            component: Login,
-            meta: 
-            {
-                title: "DAD Parking Login"
-            }
+            component: Login
         },
         {
             path: '/register',
             name: 'register',
-            component: Register,
-            meta:
-            {
-                title: "DAD Parking Register"
-            }
+            component: Register
         },
         {
             path: '/',
@@ -41,32 +33,71 @@ export default new Router({
         {
             path: '/cliente',
             name: 'cliente',
-            component: Cliente
+            component: Cliente,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '/dashboard',
             name: 'dashboard',
-            component: Dashboard
+            component: Dashboard,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '/estacionamento',
             name: 'estacionamento',
-            component: Estacionamento
+            component: Estacionamento,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '/tarifa',
             name: 'tarifa',
-            component: Tarifa
+            component: Tarifa,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '/vaga',
             name: 'vaga',
-            component: Vaga
+            component: Vaga,
+            // meta: {
+            //     requiresAuth: true
+            // }
         },
         {
             path: '/vinculo',
             name: 'vinculo',
-            component: Vinculo
+            component: Vinculo,
+            meta: {
+                requiresAuth: true
+            }
         }
     ]
+});
+
+router.beforeEach((to, from, next) => {
+    if(to.matched.some(record => record.meta.requiresAuth)) {
+        if(localStorage.getItem('bgtrackerjwt') == null) {
+            next({
+                path: '/login',
+                params: { nextUrl: to.fullPath }
+            })
+        } else {
+            next()
+        }
+    } else {
+        if(localStorage.getItem('bgtrackerjwt') == null) {
+            next()
+        } else {
+            next({ name: 'dashboard' })
+        }
+    }
 })
+
+export default router;
