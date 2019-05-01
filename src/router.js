@@ -66,9 +66,9 @@ let router = new Router({
             path: '/vaga',
             name: 'vaga',
             component: Vaga,
-            // meta: {
-            //     requiresAuth: true
-            // }
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '/vinculo',

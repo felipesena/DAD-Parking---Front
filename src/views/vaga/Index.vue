@@ -21,7 +21,7 @@
                   <v-subheader>Tipo de Veiculo</v-subheader>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-select :items="tiposVeiculo" label="Tipo Veiculo"></v-select>
+                  <v-select :items="tiposVeiculo" v-model="editedItem.tipoVeiculo" label="Tipo Veiculo"></v-select>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -37,11 +37,8 @@
     </v-toolbar>
     <v-data-table :headers="headers" :items="vagas" class="elevation-1">
       <template v-slot:items="props">
-        <td>{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ props.item.calories }}</td>
-        <td class="text-xs-right">{{ props.item.fat }}</td>
-        <td class="text-xs-right">{{ props.item.carbs }}</td>
-        <td class="text-xs-right">{{ props.item.protein }}</td>
+        <td>{{ props.item.id }}</td>
+        <td class="text-xs-center">{{ props.item.tipoVeiculo }}</td>
         <td class="justify-center layout px-0">
           <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
           <v-icon small @click="deleteItem(props.item)">delete</v-icon>
@@ -56,12 +53,34 @@ export default {
   data: () => {
     return {
       vagas: [],
-      headers: [],
+      headers: [
+        {
+          text: 'Id',
+          value: 'id'
+        },
+        {
+          text: 'Tipo de Veiculo',
+          value: 'tipoVeiculo',
+          align: 'center'
+        },
+        {
+          text: 'Actions',
+          name: 'actions',
+          sortable: false,
+          align: 'center'
+        }
+      ],
       search: "",
       dialog: false,
       editedIndex: -1,
-      editedItem: {},
-      defaultItem: {},
+      editedItem: {
+        id: 0,
+        tipoVeiculo: ''
+      },
+      defaultItem: {
+        id: 0,
+        tipoVeiculo: ''
+      },
       tiposVeiculo: ["Moto", "Carro"]
     };
   },
