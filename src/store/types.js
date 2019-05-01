@@ -42,6 +42,9 @@ export const DELETE_VAGA = 'vaga/DELETE_VAGA';
 
 // Vaga Mutations
 export const ON_GET_VAGAS = 'vaga/ON_GET_VAGAS';
+export const ON_CREATE_VAGA = 'vaga/ON_CREATE_VAGA';
+export const ON_DELETE_VAGA = 'vaga/ON_DELETE_VAGA';
+export const ON_UPDATE_VAGA = 'vaga/ON_UPDATE_VAGA';
 
 // Vaga Getters
 export const VAGAS = 'vaga/VAGAS';

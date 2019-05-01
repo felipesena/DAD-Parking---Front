@@ -7,7 +7,7 @@
       <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
       <v-dialog v-model="dialog" max-width="500px">
         <template v-slot:activator="{ on }">
-          <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
+          <v-btn color="primary" dark class="mb-2" v-on="on">Criar Vaga</v-btn>
         </template>
         <v-card>
           <v-card-title>
@@ -57,7 +57,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { GET_ALL_VAGAS, VAGAS } from '../../store/types';
+import * as types from '../../store/types';
 
 export default {
   data: () => {
@@ -96,10 +96,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      vagas: VAGAS
+      vagas: types.VAGAS
     }),
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+      return this.editedIndex === -1 ? "Nova Vaga" : "Editar Vaga";
     }
   },
   watch: {
@@ -112,7 +112,10 @@ export default {
   },
   methods: {
     ...mapActions({
-      getAllVagas: GET_ALL_VAGAS
+      getAllVagas: types.GET_ALL_VAGAS,
+      createVaga: types.CREATE_VAGA,
+      updateVaga: types.UPDATE_VAGA,
+      deleteVaga: types.DELETE_VAGA
     }),
     initialize() {
       this.getAllVagas();
@@ -123,10 +126,9 @@ export default {
       this.dialog = true;
     },
 
-    deleteItem(item) {
-      const index = this.vagas.indexOf(item);
+    deleteItem(item) {      
       confirm("Are you sure you want to delete this item?") &&
-        this.vagas.splice(index, 1);
+        this.deleteVaga(item);
     },
 
     close() {
@@ -137,11 +139,15 @@ export default {
       }, 300);
     },
 
-    save() {
+    async save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.vagas[this.editedIndex], this.editedItem);
+        const updatedVaga = {
+          vaga: this.editedItem,
+          index: this.editedIndex
+        }
+        await this.updateVaga(updatedVaga);
       } else {
-        this.vagas.push(this.editedItem);
+        await this.createVaga({tipoVeiculo: this.editedItem.tipoVeiculo});
       }
       this.close();
     }

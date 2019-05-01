@@ -1,10 +1,12 @@
+import Vue from 'vue';
 import * as types from '../types.js';
+import { LOGIN_URL, REGISTER_URL } from '../../utils/constants.js';
 
 const JWT_LOCALSTORAGE_ITEM = 'bgtrackerjwt';
 
 /* eslint-disable */
 const actions = {
-    [types.LOGOUT]: ({commit, dispatch}) => {
+    [types.LOGOUT]: ({commit}) => {
         if(localStorage.bgtrackerjwt) {
             localStorage.removeItem(JWT_LOCALSTORAGE_ITEM)
             commit(types.DISPATCH_CURRENT_USER)
@@ -14,10 +16,10 @@ const actions = {
         return false;
     },
     [types.REGISTER_USER]: (payload) => {
-        return Vue.axios.post(process.env.VUE_APP_SERVER_HOST + '/api/auth/register', payload);
+        return Vue.axios.post(REGISTER_URL, payload);
     },
-    [types.LOGIN_INTO_SERVER]: async ({commit, dispatch}, payload) => {
-        Vue.axios.post(process.env.VUE_APP_SERVER_HOST + '/api/auth/login', payload)
+    [types.LOGIN_INTO_SERVER]: async ({commit}, payload) => {        
+        Vue.axios.post(LOGIN_URL, payload)
             .then(res => {                
                 let token = res.data.token;                
                 localStorage.setItem(JWT_LOCALSTORAGE_ITEM, token);
@@ -27,7 +29,7 @@ const actions = {
                 localStorage.removeItem(JWT_LOCALSTORAGE_ITEM);                
             })
     },
-    [types.INITIAL_LOAD]: async ({commit, dispatch}) => {
+    [types.INITIAL_LOAD]: async ({commit}) => {
         if(localStorage.bgtrackerjwt) {                        
             Vue.axios.get(process.env.VUE_APP_SERVER_HOST + "/api/auth/user")
                 .then(res => {                    

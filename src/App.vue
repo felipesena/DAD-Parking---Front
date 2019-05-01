@@ -6,8 +6,8 @@
 
 <script>
 import Navbar from "./layouts/Navbar.vue";
-import { INITIAL_LOAD } from "./store/types.js"
-import { mapActions } from 'vuex';
+import { INITIAL_LOAD, IS_AUTHENTICATED } from "./store/types.js"
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: "app",
@@ -24,9 +24,16 @@ export default {
       initialLoad: INITIAL_LOAD
     })
   },
-  async mounted() {
+  computed: {
+    ...mapGetters({
+      isAuthenticated: IS_AUTHENTICATED
+    })
+  },
+  async mounted() {    
     try {          
-      await this.initialLoad();
+      if(!this.isAuthenticated){
+        await this.initialLoad();
+      }      
     } catch(err) {
       this.error = true          
     }

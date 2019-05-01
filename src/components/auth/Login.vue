@@ -61,8 +61,8 @@ export default {
     };
   },
   methods: {
-    login: async function() {
-      if (this.formValid) {
+    login: async function() {      
+      if (this.formValid) {        
         let email = this.email;
         let password = this.password;
         try {
