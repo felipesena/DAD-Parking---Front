@@ -6,6 +6,7 @@
 
 <script>
 import Navbar from "./layouts/Navbar.vue";
+import { INITIAL_LOAD } from "./store/types.js"
 import { mapActions } from 'vuex';
 
 export default {
@@ -19,7 +20,9 @@ export default {
     Navbar
   },
   methods: {
-    ...mapActions(["initialLoad"])
+    ...mapActions({
+      initialLoad: INITIAL_LOAD
+    })
   },
   async mounted() {
     try {          

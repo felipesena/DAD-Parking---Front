@@ -1,11 +1,10 @@
-import Vue from 'vue';
 import * as types from '../types.js';
-import { resolve, reject } from 'q';
 
 const JWT_LOCALSTORAGE_ITEM = 'bgtrackerjwt';
 
+/* eslint-disable */
 const actions = {
-    [types.LOGOUT]: (commit) => {
+    [types.LOGOUT]: ({commit, dispatch}) => {
         if(localStorage.bgtrackerjwt) {
             localStorage.removeItem(JWT_LOCALSTORAGE_ITEM)
             commit(types.DISPATCH_CURRENT_USER)
@@ -17,24 +16,23 @@ const actions = {
     [types.REGISTER_USER]: (payload) => {
         return Vue.axios.post(process.env.VUE_APP_SERVER_HOST + '/api/auth/register', payload);
     },
-    [types.LOGIN_INTO_SERVER]: (commit, payload) => {
+    [types.LOGIN_INTO_SERVER]: async ({commit, dispatch}, payload) => {
         Vue.axios.post(process.env.VUE_APP_SERVER_HOST + '/api/auth/login', payload)
-            .then(res => {
-                let token = res.data.token;
+            .then(res => {                
+                let token = res.data.token;                
                 localStorage.setItem(JWT_LOCALSTORAGE_ITEM, token);
-                commit(types.DISPATCH_CURRENT_USER);
-                resolve(res);
+                commit(types.CURRENT_USER_FETCHED, res.data.user);                
             })
             .catch(err => {
                 localStorage.removeItem(JWT_LOCALSTORAGE_ITEM);                
-                reject(err);
             })
     },
-    [types.INITIAL_LOAD]: (commit) => {
-        if(localStorage.bgtrackerjwt) {
-            Vue.axios.defaults.headers.common.Authorization = `Bearer ${localStorage.bgtrackerjwt}`;
-            const res = Vue.axios.get(process.env.VUE_APP_SERVER_HOST + "/api/auth/user");
-            commit(types.CURRENT_USER_FETCHED, res.data);
+    [types.INITIAL_LOAD]: async ({commit, dispatch}) => {
+        if(localStorage.bgtrackerjwt) {                        
+            Vue.axios.get(process.env.VUE_APP_SERVER_HOST + "/api/auth/user")
+                .then(res => {                    
+                    commit(types.CURRENT_USER_FETCHED, res.data);                    
+                });            
         }
     }
 }

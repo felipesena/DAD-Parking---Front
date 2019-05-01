@@ -1,7 +1,7 @@
 import * as types from '../types.js';
 
 const mutations = {
-    [types.CURRENT_USER_FETCHED]: (state, payload) => {
+    [types.CURRENT_USER_FETCHED]: (state, payload) => {        
         state.user.id = payload.id;
         state.user.email = payload.email;
         state.user.username = payload.username;

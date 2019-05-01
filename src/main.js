@@ -29,6 +29,16 @@ const store = new Vuex.Store({
   }
 });
 
+Vue.axios.interceptors.request.use(
+  (config) => {
+    let token = localStorage.bgtrackerjwt
+    if(token) {
+      config.headers['Authorization'] = `Bearer ${ token }`;
+    }
+    return config;
+  }
+)
+
 new Vue({
   router,
   store,

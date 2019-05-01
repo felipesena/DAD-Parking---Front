@@ -18,3 +18,30 @@ export const IS_AUTHENTICATED = 'auth/IS_AUTHENTICATED';
 // Cliente Actions
 // Cliente Mutations
 // Cliente Getters
+
+/* ----- Estacionamento ----- */
+
+// Estacionamento Actions
+// Estacionamento Mutations
+// Estacionamento Getters
+
+
+/* ----- Tarifa ----- */
+
+// Tarifa Actions
+// Tarifa Mutations
+// Tarifa Getters
+
+/* ----- Vaga ----- */
+
+// Vaga Actions
+export const GET_ALL_VAGAS = 'vaga/GET_ALL_VAGAS';
+export const CREATE_VAGA = 'vaga/CREATE_VAGA';
+export const UPDATE_VAGA = 'vaga/UPDATE_VAGA';
+export const DELETE_VAGA = 'vaga/DELETE_VAGA';
+
+// Vaga Mutations
+export const ON_GET_VAGAS = 'vaga/ON_GET_VAGAS';
+
+// Vaga Getters
+export const VAGAS = 'vaga/VAGAS';
