@@ -17,7 +17,14 @@
           <v-card-text>
             <v-container grid-list-md>
               <v-layout wrap>
-                <v-flex xs12 sm6 md3>
+                <v-flex xs12 sm6 md2>
+                  <v-subheader>ID</v-subheader>
+                </v-flex>
+                <v-flex xs12 sm6 md9>
+                  <v-text-field v-model="editedItem.id" readonly disabled></v-text-field>                                    
+                </v-flex>
+
+                <v-flex xs12 sm6 md5>
                   <v-subheader>Tipo de Veiculo</v-subheader>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -37,7 +44,7 @@
     </v-toolbar>
     <v-data-table :headers="headers" :items="vagas" class="elevation-1">
       <template v-slot:items="props">
-        <td>{{ props.item.id }}</td>
+        <td class="text-xs-center pr-0">{{ props.item.id }}</td>
         <td class="text-xs-center">{{ props.item.tipoVeiculo }}</td>
         <td class="justify-center layout px-0">
           <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
@@ -49,14 +56,17 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+import { GET_ALL_VAGAS, VAGAS } from '../../store/types';
+
 export default {
   data: () => {
-    return {
-      vagas: [],
+    return {      
       headers: [
         {
           text: 'Id',
-          value: 'id'
+          value: 'id',
+          align: 'center'
         },
         {
           text: 'Tipo de Veiculo',
@@ -74,17 +84,20 @@ export default {
       dialog: false,
       editedIndex: -1,
       editedItem: {
-        id: 0,
+        id: null,
         tipoVeiculo: ''
       },
       defaultItem: {
-        id: 0,
+        id: null,
         tipoVeiculo: ''
       },
       tiposVeiculo: ["Moto", "Carro"]
     };
   },
   computed: {
+    ...mapGetters({
+      vagas: VAGAS
+    }),
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
     }
@@ -98,7 +111,12 @@ export default {
     this.initialize();
   },
   methods: {
-    initialize() {},
+    ...mapActions({
+      getAllVagas: GET_ALL_VAGAS
+    }),
+    initialize() {
+      this.getAllVagas();
+    },
     editItem(item) {
       this.editedIndex = this.vagas.indexOf(item);
       this.editedItem = Object.assign({}, item);
