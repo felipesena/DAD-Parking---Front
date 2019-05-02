@@ -17,7 +17,10 @@ const actions = {
             })
     },
     [types.UPDATE_VAGA]: async ({commit}, payload) => {
-        Vue.axios.put(`${VAGA_URL}/${payload.vaga.id}`, { tipoVeiculo: payload.vaga.tipoVeiculo})
+        Vue.axios.put(`${VAGA_URL}/${payload.vaga.id}`, { 
+            tipoVeiculo: payload.vaga.tipoVeiculo,
+            numeroVaga: payload.vaga.numeroVaga
+        })
             .then(() => {
                 commit(types.ON_UPDATE_VAGA, payload);
             })        

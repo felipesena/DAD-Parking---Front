@@ -25,6 +25,13 @@
                 </v-flex>
 
                 <v-flex xs12 sm6 md5>
+                  <v-subheader>Número Vaga</v-subheader>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="editedItemd.numeroVaga" mask="###"></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 sm6 md5>
                   <v-subheader>Tipo de Veiculo</v-subheader>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -69,6 +76,11 @@ export default {
           align: 'center'
         },
         {
+          text: 'Número Vaga',
+          value: 'numeroVaga',
+          align: 'center'
+        },
+        {
           text: 'Tipo de Veiculo',
           value: 'tipoVeiculo',
           align: 'center'
@@ -85,10 +97,12 @@ export default {
       editedIndex: -1,
       editedItem: {
         id: null,
+        numeroVaga: 0,
         tipoVeiculo: ''
       },
       defaultItem: {
         id: null,
+        numeroVaga: 0,
         tipoVeiculo: ''
       },
       tiposVeiculo: ["Moto", "Carro"]
@@ -147,7 +161,10 @@ export default {
         }
         await this.updateVaga(updatedVaga);
       } else {
-        await this.createVaga({tipoVeiculo: this.editedItem.tipoVeiculo});
+        await this.createVaga({
+          tipoVeiculo: this.editedItem.tipoVeiculo,
+          numeroVaga: this.editedItem.numeroVaga
+          });
       }
       this.close();
     }
