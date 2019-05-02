@@ -70,8 +70,7 @@ export default {
         { text: "Tarifa", route: "/tarifa" },
         { text: "Cliente", route: "/cliente" },
         { text: "Vaga", route: "/vaga" },
-        { text: "Estacionamento", route: "/estacionamento" },
-        { text: "Vinculo", route: "/vinculo" }
+        { text: "Estacionamento", route: "/estacionamento" }
       ]
     };
   },
