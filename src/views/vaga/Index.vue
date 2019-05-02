@@ -42,7 +42,7 @@
         </v-card>
       </v-dialog>
     </v-toolbar>
-    <v-data-table :headers="headers" :items="vagas" class="elevation-1">
+    <v-data-table :headers="headers" :items="vagas" class="elevation-1" :search="search">
       <template v-slot:items="props">
         <td class="text-xs-center pr-0">{{ props.item.id }}</td>
         <td class="text-xs-center">{{ props.item.tipoVeiculo }}</td>

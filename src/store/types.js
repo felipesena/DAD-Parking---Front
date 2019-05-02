@@ -22,9 +22,19 @@ export const IS_AUTHENTICATED = 'auth/IS_AUTHENTICATED';
 /* ----- Estacionamento ----- */
 
 // Estacionamento Actions
-// Estacionamento Mutations
-// Estacionamento Getters
+export const GET_ALL_ESTACIONAMENTOS = 'estacionamento/GET_ALL_ESTACIONAMENTOS';
+export const CREATE_ESTACIONAMENTO = 'estacionamento/CREATE_ESTACIONAMENTO';
+export const UPDATE_ESTACIONAMENTO = 'estacionamento/UPDATE_ESTACIONAMENTO';
+export const DELETE_ESTACIONAMENTO = 'estacionamento/DELETE_ESTACIONAMENTO';
 
+// Estacionamento Mutations
+export const ON_GET_ESTACIONAMENTOS = 'estacionamento/ON_GET_ESTACIONAMENTOS';
+export const ON_CREATE_ESTACIONAMENTO = 'estacionamento/ON_CREATE_ESTACIONAMENTO';
+export const ON_DELETE_ESTACIONAMENTO = 'estacionamento/ON_DELETE_ESTACIONAMENTO';
+export const ON_UPDATE_ESTACIONAMENTO = 'estacionamento/ON_UPDATE_ESTACIONAMENTO';
+
+// Estacionamento Getters
+export const ESTACIONAMENTOS = 'estacionamento/ESTACIONAMENTOS';
 
 /* ----- Tarifa ----- */
 
