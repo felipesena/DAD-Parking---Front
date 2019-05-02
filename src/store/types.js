@@ -58,3 +58,20 @@ export const ON_UPDATE_VAGA = 'vaga/ON_UPDATE_VAGA';
 
 // Vaga Getters
 export const VAGAS = 'vaga/VAGAS';
+
+/* ----- Vinculo ----- */
+
+// Vinculo Actions
+export const GET_ALL_VINCULOS = 'vinculo/GET_ALL_VINCULOS';
+export const CREATE_VINCULO = 'vinculo/CREATE_VINCULO';
+export const UPDATE_VINCULO = 'vinculo/UPDATE_VINCULO';
+export const DELETE_VINCULO = 'vinculo/DELETE_VINCULO';
+
+// Vinculo Mutations
+export const ON_GET_VINCULO = 'vinculo/ON_GET_VAGAS';
+export const ON_CREATE_VINCULO = 'vinculo/ON_CREATE_VINCULO';
+export const ON_DELETE_VINCULO = 'vinculo/ON_DELETE_VINCULO';
+export const ON_UPDATE_VINCULO = 'vinculo/ON_UPDATE_VINCULO';
+
+// Vinculo Getters
+export const VINCULOS = 'vinculo/VINCULOS';
