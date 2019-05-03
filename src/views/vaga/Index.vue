@@ -28,7 +28,7 @@
                   <v-subheader>Número Vaga</v-subheader>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItemd.numeroVaga" mask="###"></v-text-field>
+                  <v-text-field v-model="editedItem.numeroVaga" mask="###"></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 sm6 md5>
@@ -52,6 +52,7 @@
     <v-data-table :headers="headers" :items="vagas" class="elevation-1" :search="search">
       <template v-slot:items="props">
         <td class="text-xs-center pr-0">{{ props.item.id }}</td>
+        <td class="text-xs-center"> {{ props.item.numeroVaga }}</td>
         <td class="text-xs-center">{{ props.item.tipoVeiculo }}</td>
         <td class="justify-center layout px-0">
           <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>

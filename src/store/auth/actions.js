@@ -15,7 +15,7 @@ const actions = {
 
         return false;
     },
-    [types.REGISTER_USER]: (payload) => {
+    [types.REGISTER_USER]: async ({commit},payload) => {
         return Vue.axios.post(REGISTER_URL, payload);
     },
     [types.LOGIN_INTO_SERVER]: async ({commit}, payload) => {        
@@ -25,7 +25,7 @@ const actions = {
                 localStorage.setItem(JWT_LOCALSTORAGE_ITEM, token);
                 commit(types.CURRENT_USER_FETCHED, res.data.user);                
             })
-            .catch(err => {
+            .catch(() => {
                 localStorage.removeItem(JWT_LOCALSTORAGE_ITEM);                
             })
     },
