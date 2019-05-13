@@ -65,7 +65,7 @@ export const VAGAS = 'vaga/VAGAS';
 export const GET_ALL_VINCULOS = 'vinculo/GET_ALL_VINCULOS';
 export const CREATE_VINCULO = 'vinculo/CREATE_VINCULO';
 export const UPDATE_VINCULO = 'vinculo/UPDATE_VINCULO';
-export const DELETE_VINCULO = 'vinculo/DELETE_VINCULO';
+export const GET_VALOR_TOTAL = 'vinculo/GET_VALOR_TOTAL';
 
 // Vinculo Mutations
 export const ON_GET_VINCULO = 'vinculo/ON_GET_VAGAS';
