@@ -5,9 +5,9 @@
       <v-divider class="mx-2" inset vertical></v-divider>
       <v-spacer></v-spacer>
       <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
-      <v-btn color="primary" dark class="mb-2">Criar Vinculo</v-btn>
+      <v-btn color="primary" dark class="mb-2" @click="newVinculo">Criar Vinculo</v-btn>
     </v-toolbar>
-    <v-data-table :headers="headers" :items="vagas" class="elevation-1" :search="search">
+    <v-data-table :headers="headers" :items="vinculos" class="elevation-1" :search="search">
       <template v-slot:items="props">
         <td class="text-xs-center pr-0">{{ props.item.numeroVaga }}</td>
         <td class="text-xs-center">{{ props.item.nomeCliente }}</td>
@@ -25,65 +25,62 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import * as types from '../store/types';
-import moment from 'moment';
+import { mapActions, mapGetters } from "vuex";
+import * as types from "../store/types";
+import moment from "moment";
 
 export default {
   data: () => {
-    return {      
+    return {
       headers: [
         {
-          text: 'Numero Vaga',
-          value: 'numeroVaga',
-          align: 'center'
+          text: "Numero Vaga",
+          value: "numeroVaga",
+          align: "center"
         },
         {
-          text: 'Nome Cliente',
-          value: 'nomeCliente', 
-          align: 'center'
+          text: "Nome Cliente",
+          value: "nomeCliente",
+          align: "center"
         },
         {
-          text: 'Modelo',
-          value: 'modelo',
-          align: 'center'
+          text: "Modelo",
+          value: "modelo",
+          align: "center"
         },
         {
-          text: 'Data/Hora Inicio',
-          value: 'dataHoraInicio',
-          align: 'center'
+          text: "Data/Hora Inicio",
+          value: "dataHoraInicio",
+          align: "center"
         },
         {
-          text: 'Data/Hora Fim',
-          value: 'dataHoraFim',
-          align: 'center'
+          text: "Data/Hora Fim",
+          value: "dataHoraFim",
+          align: "center"
         },
         {
-          text: 'Valor Total',
-          value: 'valorTotal',
-          align: 'center'
+          text: "Valor Total",
+          value: "valorTotal",
+          align: "center"
         },
         {
-          text: 'Actions',
-          name: 'actions',
+          text: "Actions",
+          name: "actions",
           sortable: false,
-          align: 'center'
+          align: "center"
         }
       ],
       search: "",
       defaultItem: {
         id: null,
-        tipoVeiculo: ''
+        tipoVeiculo: ""
       }
     };
   },
   computed: {
     ...mapGetters({
       vinculos: types.VINCULOS
-    }),
-    formTitle() {
-      return this.editedIndex === -1 ? "Nova Vinculo" : "Editar Vinculo";
-    }
+    })
   },
   created() {
     this.initialize();
@@ -97,14 +94,14 @@ export default {
     }),
 
     formatDate(value) {
-      if(value) {
-        return moment(String(value)).format('DD/MM/YYYY hh:mm');
+      if (value) {
+        return moment(String(value)).format("DD/MM/YYYY hh:mm");
       }
     },
 
     formatPrice(value) {
-      if(value) {
-        let val = (value/1).toFixed(2).replace('.', ',');
+      if (value) {
+        let val = (value / 1).toFixed(2).replace(".", ",");
         return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       }
     },
@@ -114,11 +111,22 @@ export default {
     },
 
     editItem(item) {
-      let editedIndex = this.vinculos.indexOf(item);
+      this.$router.push(`/vinculo/${item.id}`);
+    },
+
+    newVinculo() {
+      this.$router.push("/vinculo/new");
     },
 
     getValor(item) {
-      let editedIndex = this.vinculos.indexOf(item);
+      let index = this.vinculos.indexOf(item);
+      let payload = {
+        index,
+        vinculo: item
+      };
+
+      confirm("Tem certeza que deseja finalizar?") &&
+        this.getValorTotal(payload);
     }
   }
 };

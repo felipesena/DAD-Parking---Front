@@ -5,10 +5,10 @@ import Register from './components/auth/Register.vue'
 import Home from './components/Home.vue'
 import Cliente from './views/Cliente.vue'
 import Dashboard from './views/Dashboard.vue'
+import Vinculo from './views/vinculo/Vinculo.vue'
 import Estacionamento from './views/estacionamento/Index.vue'
 import Tarifa from './views/Tarifa.vue'
 import Vaga from './views/vaga/Index.vue'
-import Vinculo from './views/Vinculo.vue'
 
 Vue.use(Router)
 
@@ -47,6 +47,20 @@ let router = new Router({
             }
         },
         {
+            path: '/vinculo/new',
+            component: Vinculo,
+            meta: {
+                requiresAuth: true
+            }            
+        },
+        {
+            path: '/vinculo/:id',
+            component: Vinculo,
+            meta: {
+                requiresAuth: true
+            }            
+        },        
+        {
             path: '/estacionamento',
             name: 'estacionamento',
             component: Estacionamento,
@@ -66,14 +80,6 @@ let router = new Router({
             path: '/vaga',
             name: 'vaga',
             component: Vaga,
-            meta: {
-                requiresAuth: true
-            }
-        },
-        {
-            path: '/vinculo',
-            name: 'vinculo',
-            component: Vinculo,
             meta: {
                 requiresAuth: true
             }

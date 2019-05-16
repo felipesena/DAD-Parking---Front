@@ -169,7 +169,7 @@ export default {
     },
 
     deleteItem(item) {      
-      confirm("Are you sure you want to delete this item?") &&
+      confirm("Tem certeza que deseja deletar esse item?") &&
         this.deleteEstacionamento(item);
     },
 
