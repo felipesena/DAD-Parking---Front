@@ -16,8 +16,19 @@ export const IS_AUTHENTICATED = 'auth/IS_AUTHENTICATED';
 /* ----- CLIENTE ----- */
 
 // Cliente Actions
+export const GET_ALL_CLIENTES = 'cliente/GET_ALL_CLIENTES';
+export const CREATE_CLIENTE = 'cliente/CREATE_CLIENTE';
+export const UPDATE_CLIENTE = 'cliente/UPDATE_CLIENTE';
+export const DELETE_CLIENTE = 'cliente/DELETE_CLIENTE';
+
 // Cliente Mutations
+export const ON_GET_CLIENTES = 'cliente/ON_GET_CLIENTES';
+export const ON_CREATE_CLIENTE = 'cliente/ON_CREATE_CLIENTE';
+export const ON_DELETE_CLIENTE = 'cliente/ON_DELETE_CLIENTE';
+export const ON_UPDATE_CLIENTE = 'cliente/ON_UPDATE_CLIENTE';
+
 // Cliente Getters
+export const CLIENTES = 'cliente/CLIENTES';
 
 /* ----- Estacionamento ----- */
 
