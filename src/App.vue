@@ -40,3 +40,9 @@ export default {
   }
 };
 </script>
+
+<style>
+  div.my-5 {
+    margin-top: 72px!important;
+  }
+</style>
