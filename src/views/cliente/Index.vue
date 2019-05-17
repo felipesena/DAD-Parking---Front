@@ -23,7 +23,9 @@
                 <v-flex xs12 sm6 md9>
                   <v-text-field v-model="editedItem.id" readonly disabled></v-text-field>
                 </v-flex>
+              </v-layout>
 
+              <v-layout wrap>
                 <v-flex xs12 sm6 md3>
                   <v-subheader>Nome</v-subheader>
                 </v-flex>
@@ -59,7 +61,7 @@
                 <v-flex xs12 sm6 md8>
                   <v-text-field v-model="editedItem.veiculo.placa" mask="AAA-####"></v-text-field>
                 </v-flex>
-                
+
                 <v-flex xs12 sm6 md3>
                   <v-subheader>Marca</v-subheader>
                 </v-flex>
@@ -84,11 +86,14 @@
                 <v-container fill-height fluid>
                   <v-layout fill-height>
                     <v-flex xs12 align-center flexbox>
-                      <v-select :items="tiposVeiculo" v-model="editedItem.veiculo.tipoVeiculo" label="Tipo Veiculo"></v-select>
+                      <v-select
+                        :items="tiposVeiculo"
+                        v-model="editedItem.veiculo.tipoVeiculo"
+                        label="Tipo Veiculo"
+                      ></v-select>
                     </v-flex>
                   </v-layout>
                 </v-container>
-
               </v-layout>
             </v-container>
           </v-card-text>
@@ -182,9 +187,7 @@ export default {
       clientes: types.CLIENTES
     }),
     formTitle() {
-      return this.editedIndex === -1
-        ? "Novo Estacionamento"
-        : "Editar Estacionamento";
+      return this.editedIndex === -1 ? "Novo Cliente" : "Editar Cliente";
     }
   },
   watch: {
@@ -233,11 +236,16 @@ export default {
         await this.updateCliente(updatedCliente);
       } else {
         const newCliente = {
-          nome: this.editedItem.nome,
-          endereco: this.editedItem.endereco,
-          telefone: this.editedItem.telefone,
-          totalVagasMoto: this.editedItem.totalVagasMoto,
-          totalVagasCarro: this.editedItem.totalVagasCarro
+          nome: this.editedItem.cliente.nome,
+          cpf: this.editedItem.cliente.cpf,
+          celular: this.editedItem.cliente.celular,
+          veiculo: {
+            placa: this.editedItem.cliente.veiculo.placa,
+            marca: this.editedItem.cliente.veiculo.marca,
+            modelo: this.editedItem.cliente.veiculo.modelo,
+            ano: this.editedItem.cliente.veiculo.ano,
+            tipoVeiculo: this.editedItem.cliente.veiculo.tipoVeiculo
+          }
         };
         await this.createEstacionamento(newCliente);
       }
