@@ -16,13 +16,7 @@
 
           <v-card-text>
             <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12 sm6 md2>
-                  <v-subheader>ID</v-subheader>
-                </v-flex>
-                <v-flex xs12 sm6 md9>
-                  <v-text-field v-model="editedItem.id" readonly disabled></v-text-field>                                    
-                </v-flex>
+              <v-layout wrap>             
 
                 <v-flex xs12 sm6 md5>
                   <v-subheader>Número Vaga</v-subheader>
@@ -50,8 +44,7 @@
       </v-dialog>
     </v-toolbar>
     <v-data-table :headers="headers" :items="vagas" class="elevation-1" :search="search">
-      <template v-slot:items="props">
-        <td class="text-xs-center pr-0">{{ props.item.id }}</td>
+      <template v-slot:items="props">        
         <td class="text-xs-center"> {{ props.item.numeroVaga }}</td>
         <td class="text-xs-center">{{ props.item.tipoVeiculo }}</td>
         <td class="justify-center layout px-0">
@@ -70,12 +63,7 @@ import * as types from '../../store/types';
 export default {
   data: () => {
     return {      
-      headers: [
-        {
-          text: 'Id',
-          value: 'id',
-          align: 'center'
-        },
+      headers: [       
         {
           text: 'Número Vaga',
           value: 'numeroVaga',

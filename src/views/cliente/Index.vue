@@ -15,16 +15,7 @@
           </v-card-title>
 
           <v-card-text>
-            <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12 sm6 md2>
-                  <v-subheader>ID</v-subheader>
-                </v-flex>
-                <v-flex xs12 sm6 md9>
-                  <v-text-field v-model="editedItem.id" readonly disabled></v-text-field>
-                </v-flex>
-              </v-layout>
-
+            <v-container grid-list-md> 
               <v-layout wrap>
                 <v-flex xs12 sm6 md3>
                   <v-subheader>Nome</v-subheader>
@@ -107,9 +98,9 @@
       </v-dialog>
     </v-toolbar>
     <v-data-table :headers="headers" :items="clientes" class="elevation-1" :search="search">
-      <template v-slot:items="props">
-        <td class="text-xs-center pr-0">{{ props.item.id }}</td>
+      <template v-slot:items="props">        
         <td class="text-xs-center">{{ props.item.nome }}</td>
+        <td class="text-xs-center">{{ props.item.celular }}</td>
         <td class="text-xs-center">{{ props.item.veiculo.modelo }}</td>
         <td class="justify-center layout px-0">
           <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
@@ -127,15 +118,15 @@ import * as types from "../../store/types";
 export default {
   data: () => {
     return {
-      headers: [
-        {
-          text: "Id",
-          value: "id",
-          align: "center"
-        },
+      headers: [        
         {
           text: "Nome",
           value: "nome",
+          align: "center"
+        },
+        {
+          text: "Celular",
+          value: "celular",
           align: "center"
         },
         {
@@ -236,15 +227,15 @@ export default {
         await this.updateCliente(updatedCliente);
       } else {
         const newCliente = {
-          nome: this.editedItem.cliente.nome,
-          cpf: this.editedItem.cliente.cpf,
-          celular: this.editedItem.cliente.celular,
+          nome: this.editedItem.nome,
+          cpf: this.editedItem.cpf,
+          celular: this.editedItem.celular,
           veiculo: {
-            placa: this.editedItem.cliente.veiculo.placa,
-            marca: this.editedItem.cliente.veiculo.marca,
-            modelo: this.editedItem.cliente.veiculo.modelo,
-            ano: this.editedItem.cliente.veiculo.ano,
-            tipoVeiculo: this.editedItem.cliente.veiculo.tipoVeiculo
+            placa: this.editedItem.veiculo.placa,
+            marca: this.editedItem.veiculo.marca,
+            modelo: this.editedItem.veiculo.modelo,
+            ano: this.editedItem.veiculo.ano,
+            tipoVeiculo: this.editedItem.veiculo.tipoVeiculo
           }
         };
         await this.createCliente(newCliente);

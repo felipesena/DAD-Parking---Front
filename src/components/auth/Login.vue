@@ -19,7 +19,7 @@
           <v-text-field
             v-model="password"
             :append-icon="showPassword ? 'visibility' : 'visibility_off'"
-            :rules="[rules.required, rules.min]"
+            :rules="[rules.required]"
             :type="showPassword ? 'text' : 'password'"
             name="input-10-1"
             label="Password"
@@ -51,8 +51,7 @@ export default {
       error: false,
       showPassword: false,
       rules: {
-        required: value => !!value || "Required",
-        min: v => v.length >= 6 || "Min 6 characters",
+        required: value => !!value || "Required",        
         email: value => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Invalid e-mail.";
