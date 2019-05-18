@@ -7,7 +7,7 @@ import Cliente from './views/cliente/Index.vue'
 import Dashboard from './views/Dashboard.vue'
 import Vinculo from './views/vinculo/Vinculo.vue'
 import Estacionamento from './views/estacionamento/Index.vue'
-import Tarifa from './views/Tarifa.vue'
+import Tarifa from './views/tarifa/Index.vue'
 import Vaga from './views/vaga/Index.vue'
 
 Vue.use(Router)

@@ -50,8 +50,19 @@ export const ESTACIONAMENTOS = 'estacionamento/ESTACIONAMENTOS';
 /* ----- Tarifa ----- */
 
 // Tarifa Actions
+export const GET_ALL_TARIFAS = 'tarifa/GET_ALL_TARIFAS';
+export const CREATE_TARIFA = 'tarifa/CREATE_TARIFA';
+export const UPDATE_TARIFA = 'tarifa/UPDATE_TARIFA';
+export const DELETE_TARIFA = 'tarifa/DELETE_TARIFA';
+
 // Tarifa Mutations
+export const ON_GET_TARIFAS = 'tarifa/ON_GET_TARIFAS';
+export const ON_CREATE_TARIFA = 'tarifa/ON_CREATE_TARIFA';
+export const ON_DELETE_TARIFA = 'tarifa/ON_DELETE_TARIFA';
+export const ON_UPDATE_TARIFA = 'tarifa/ON_UPDATE_TARIFA';
+
 // Tarifa Getters
+export const TARIFAS = 'tarifa/TARIFAS';
 
 /* ----- Vaga ----- */
 

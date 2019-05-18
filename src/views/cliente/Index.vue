@@ -247,7 +247,7 @@ export default {
             tipoVeiculo: this.editedItem.cliente.veiculo.tipoVeiculo
           }
         };
-        await this.createEstacionamento(newCliente);
+        await this.createCliente(newCliente);
       }
       this.close();
     }
