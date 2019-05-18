@@ -92,7 +92,6 @@ export const GET_VALOR_TOTAL = 'vinculo/GET_VALOR_TOTAL';
 // Vinculo Mutations
 export const ON_GET_VINCULO = 'vinculo/ON_GET_VAGAS';
 export const ON_CREATE_VINCULO = 'vinculo/ON_CREATE_VINCULO';
-export const ON_DELETE_VINCULO = 'vinculo/ON_DELETE_VINCULO';
 export const ON_UPDATE_VINCULO = 'vinculo/ON_UPDATE_VINCULO';
 export const ON_GET_VALOR_TOTAL = 'vinculo/ON_GET_VALOR_TOTAL';
 

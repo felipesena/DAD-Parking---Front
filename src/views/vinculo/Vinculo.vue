@@ -23,9 +23,90 @@
               <v-flex xs12 sm2 md2>
                 <v-subheader>Número Vaga</v-subheader>
               </v-flex>
-              <v-flex xs12 sm3 md2>
+              <v-flex xs12 sm3 md1>
                 <v-text-field v-model="vinculo.vaga.numeroVaga" mask="###"></v-text-field>
               </v-flex>
+
+              <v-flex xs12 sm2 md2>
+                <v-subheader>Data/Hora Início</v-subheader>
+              </v-flex>
+              <v-flex xs12 sm5 md3>
+                <v-text-field v-model="vinculo.dataHoraInicio" mask="##/##/#### ##:##"></v-text-field>
+              </v-flex>
+            </v-layout>
+
+            <v-layout>
+              <v-flex xs12 sm2 md1>
+                <v-subheader>Nome</v-subheader>
+              </v-flex>
+              <v-flex xs12 sm5 md5>
+                <v-text-field v-model="vinculo.cliente.nome"></v-text-field>
+              </v-flex>
+
+              <v-flex xs12 sm6 md1>
+                <v-subheader>CPF</v-subheader>
+              </v-flex>
+              <v-flex xs12 sm6 md5>
+                <v-text-field v-model="vinculo.cliente.cpf" mask="###.###.###-##"></v-text-field>
+              </v-flex>
+
+              <v-flex xs12 sm6 md1>
+                <v-subheader>Celular</v-subheader>
+              </v-flex>
+              <v-flex xs12 sm6 md5>
+                <v-text-field v-model="vinculo.cliente.celular" mask="(##) ##### - ####"></v-text-field>
+              </v-flex>
+            </v-layout>
+
+            <v-layout>
+              <v-flex xs12 sm6 md2>
+                <v-subheader>Placa</v-subheader>
+              </v-flex>
+              <v-flex xs12 sm6 md5>
+                <v-text-field v-model="vinculo.cliente.veiculo.placa" mask="AAA-####"></v-text-field>
+              </v-flex>
+
+              <v-flex xs12 sm6 md2>
+                <v-subheader>Marca</v-subheader>
+              </v-flex>
+              <v-flex xs12 sm6 md6>
+                <v-text-field v-model="vinculo.cliente.veiculo.marca"></v-text-field>
+              </v-flex>
+
+              <v-flex xs12 sm6 md2>
+                <v-subheader>Modelo</v-subheader>
+              </v-flex>
+              <v-flex xs12 sm6 md8>
+                <v-text-field v-model="vinculo.cliente.veiculo.modelo"></v-text-field>
+              </v-flex>
+
+              <v-flex xs12 sm6 md2>
+                <v-subheader>Ano</v-subheader>
+              </v-flex>
+              <v-flex xs12 sm6 md8>
+                <v-text-field v-model="vinculo.cliente.veiculo.ano" mask="####"></v-text-field>
+              </v-flex>
+            </v-layout>
+
+            <v-layout>
+              <v-flex xs12 sm6 md2>
+                <v-subheader>Tipo de Veiculo</v-subheader>
+              </v-flex>
+              <v-flex xs12 sm6 md2>
+                <v-select :items="tiposVeiculo" v-model="vinculo.tarifa.tipoVeiculo"></v-select>
+              </v-flex>
+
+              <v-flex xs12 sm6 md2>
+                <v-subheader>Tipo de Tarifa</v-subheader>
+              </v-flex>
+              <v-flex xs12 sm6 md2>
+                <v-select :items="tiposTarifa" v-model="vinculo.tarifa.tipoTarifa"></v-select>
+              </v-flex>
+            </v-layout>
+
+            <v-layout>
+              <v-btn @click="saveVinculo">Salvar</v-btn>
+              <v-btn @click="backToDashboard">Voltar</v-btn>
             </v-layout>
           </v-container>
         </v-card-text>
@@ -36,6 +117,8 @@
 
 <script>
 import { VINCULO_URL } from "../../utils/constants.js";
+import { mapActions } from "vuex";
+import { UPDATE_VINCULO, CREATE_VINCULO } from "../../store/types";
 import axios from "axios";
 
 export default {
@@ -43,7 +126,9 @@ export default {
   data: () => {
     return {
       id: "",
-      vinculo: null
+      vinculo: null,
+      tiposVeiculo: ["Carro", "Moto"],
+      tiposTarifa: ["Hora", "Mensal"]
     };
   },
   computed: {
@@ -57,19 +142,15 @@ export default {
       this.getVinculoById(this.id);
     } else {
       this.vinculo = {
-        id: "",
         vaga: {
-          id: "",
           numeroVaga: 0,
           tipoVeiculo: ""
         },
         cliente: {
-          id: "",
           nome: "",
           cpf: "",
           celular: "",
           veiculo: {
-            id: "",
             placa: "",
             marca: "",
             modelo: "",
@@ -78,18 +159,45 @@ export default {
           }
         },
         tarifa: {
-          id: "",
           tipoTarifa: "",
           tipoVeiculo: "",
           valor: 0
         },
         dataHoraInicio: "",
-        dataHoraFim: "",
+        dataHoraFim: null,
         valorTotal: 0
       };
     }
   },
   methods: {
+    ...mapActions({
+      updateVinculo: UPDATE_VINCULO,
+      createVinculo: CREATE_VINCULO
+    }),
+
+    saveVinculo() {
+
+      let newVinculo = Object.assign({}, this.vinculo)
+      
+      newVinculo.cliente.veiculo.tipoVeiculo = this.vinculo.tarifa.tipoVeiculo;
+      newVinculo.vaga.tipoVeiculo = this.vinculo.tarifa.tipoVeiculo;
+
+      delete newVinculo.dataHoraInicio;
+      newVinculo.dataHoraInicio = new Date();
+
+      if (this.id) {
+        this.updateVinculo(newVinculo);
+      } else {
+        this.createVinculo(newVinculo);
+      }
+
+      this.backToDashboard();
+    },
+
+    backToDashboard() {
+      this.$router.push("/dashborad");
+    },
+
     getVinculoById(id) {
       axios.get(`${VINCULO_URL}/${id}`).then(res => {
         this.vinculo = res.data;

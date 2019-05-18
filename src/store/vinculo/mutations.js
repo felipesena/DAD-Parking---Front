@@ -10,6 +10,12 @@ const mutations = {
         if(payload) {
             Object.assign(state.vinculos[payload.index], payload.vinculo);
         }
+    },
+    [types.ON_CREATE_VINCULO]: (state, payload) => {
+        state.vinculos.push(payload);
+    },
+    [types.ON_UPDATE_VINCULO]: (state, payload) => {
+        Object.assign(state.vinculos[payload.index], payload.vinculo);
     }
 };
 
