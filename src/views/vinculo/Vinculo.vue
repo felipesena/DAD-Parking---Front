@@ -31,7 +31,7 @@
                 <v-subheader>Data/Hora Início</v-subheader>
               </v-flex>
               <v-flex xs12 sm5 md3>
-                <v-text-field v-model="vinculo.dataHoraInicio" mask="##/##/#### ##:##"></v-text-field>
+                <v-text-field v-model="dataHoraInicio" mask="##/##/#### ##:##"></v-text-field>
               </v-flex>
             </v-layout>
 
@@ -120,6 +120,7 @@ import { VINCULO_URL } from "../../utils/constants.js";
 import { mapActions } from "vuex";
 import { UPDATE_VINCULO, CREATE_VINCULO } from "../../store/types";
 import axios from "axios";
+import moment from "moment";
 
 export default {
   name: "Vinculo",
@@ -134,6 +135,17 @@ export default {
   computed: {
     formTitle() {
       return this.id ? "Editar Vinculo" : "Novo Vinculo";
+    },
+
+    dataHoraInicio: {
+      get: function() {
+        return moment(String(this.vinculo.dataHoraInicio)).format("DD/MM/YYYY hh:mm");
+      },
+      set: function(newValue) {
+        if (Date.parse(newValue)) {
+          this.vinculo.dataHoraInici0 = new Date(newValue).toISOString();
+        }
+      }
     }
   },
   created() {
