@@ -26,8 +26,8 @@ const actions = {
                 commit(types.ON_GET_VALOR_TOTAL, response);
             })
     },
-    [types.UPDATE_VINCULO]: async ({commit}, payload) => {
-        Vue.axios.put(`${VINCULO_URL}/${payload.id}`, updatedVinculo)
+    [types.UPDATE_VINCULO]: async ({commit}, payload) => {        
+        Vue.axios.put(`${VINCULO_URL}/${payload.id}`, payload)
             .then(() => {
                 commit(types.ON_UPDATE_VINCULO, payload);
             });

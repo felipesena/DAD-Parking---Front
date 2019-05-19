@@ -142,8 +142,9 @@ export default {
         return moment(String(this.vinculo.dataHoraInicio)).format("DD/MM/YYYY hh:mm");
       },
       set: function(newValue) {
-        if (Date.parse(newValue)) {
-          this.vinculo.dataHoraInici0 = new Date(newValue).toISOString();
+        if (this.checkDate(newValue)) {
+          console.log(new Date(this.formatDate(newValue)).toISOString());
+          this.vinculo.dataHoraInicio = new Date(this.formatDate(newValue)).toISOString();
         }
       }
     }
@@ -186,6 +187,20 @@ export default {
       updateVinculo: UPDATE_VINCULO,
       createVinculo: CREATE_VINCULO
     }),
+
+    formatDate(value) {
+      let day = value.substring(0,2);
+      let month = value.substring(2,4);
+      let year = value.substring(4,8);
+      let hour = value.substring(8,10);
+      let minute = value.substring(10,12);
+
+      return `${month}/${day}/${year} ${hour}:${minute}`;
+    },
+
+    checkDate(value) {
+      return new Date().getFullYear() == value.substring(4,8);
+    },
 
     saveVinculo() {
 
